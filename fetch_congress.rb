@@ -16,8 +16,8 @@ def get_province_results(province_id, province_name, region_id)
         party['acronym'],
         party['name'],
         party['votes']['presential'],
-        party['seats']
-      ])
+        party['seats'],
+        json['results']['countedPercent']])
   end
 end
 
@@ -27,7 +27,17 @@ def get_province_list
   return JSON.parse(content)
 end
 
-puts CSV.generate_line(['province_id', 'region_id', 'province', 'party_id', 'party_acronym', 'party_name', 'votes', 'seats'])
+puts CSV.generate_line([
+    'province_id',
+    'region_id',
+    'province',
+    'party_id',
+    'party_acronym',
+    'party_name',
+    'votes',
+    'seats',
+    '% counted'])
+
 get_province_list.each do |province|
   get_province_results(*province)
   sleep 1
